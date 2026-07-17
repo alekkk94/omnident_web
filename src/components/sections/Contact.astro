@@ -1,0 +1,442 @@
+---
+import { getTranslations, getServices } from '../../i18n/utils';
+import type { Locale } from '../../i18n/ui';
+import { site } from '../../config/site';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = getTranslations(lang);
+const categories = getServices(lang);
+const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.mapQuery)}&output=embed`;
+---
+
+<section id="contact" class="section contact">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow reveal">{t.contact.eyebrow}</span>
+      <h2 class="reveal">
+        {t.contact.headlineStart}<span class="accent">{t.contact.headlineAccent}</span>{t.contact.headlineEnd}
+      </h2>
+      <p class="contact-sub reveal">{t.contact.subheading}</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <ul class="info-cards">
+          <li>
+            <span class="info-label">{t.contact.addressLabel}</span>
+            <span class="info-value">{site.address.street}, {site.address.city} {site.address.postalCode}</span>
+          </li>
+          <li>
+            <span class="info-label">{t.contact.phoneLabel}</span>
+            <a class="info-value info-link" href={site.phone.href}>{site.phone.display}</a>
+          </li>
+          <li>
+            <span class="info-label">{t.contact.hoursLabel}</span>
+            <span class="info-value">{lang === 'mk' ? site.hours.mk : site.hours.en}</span>
+          </li>
+          <li>
+            <span class="info-label">{t.contact.socialLabel}</span>
+            <span class="info-value info-social">
+              <a href={site.social.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
+              <a href={site.social.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>
+            </span>
+          </li>
+        </ul>
+
+        <div class="map-frame">
+          <iframe
+            src={mapSrc}
+            width="100%"
+            height="100%"
+            style="border:0;"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="OMNIDENT — Google Maps"
+          ></iframe>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap reveal">
+        <form
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          data-contact-form
+          data-lang={lang}
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <input type="hidden" name="language" value={lang} />
+          <p class="honeypot">
+            <label>Don't fill this out: <input name="bot-field" /></label>
+          </p>
+
+          <div class="field-group channel-select" role="radiogroup" aria-label={t.contact.form.channelLabel}>
+            <label class="channel-option">
+              <input type="radio" name="channel" value="email" checked data-channel-input />
+              <span>{t.contact.form.channelEmail}</span>
+            </label>
+            <label class="channel-option">
+              <input type="radio" name="channel" value="viber" data-channel-input />
+              <span>{t.contact.form.channelViber}</span>
+            </label>
+          </div>
+
+          <div class="field">
+            <label for="fullName">{t.contact.form.fullName}</label>
+            <input id="fullName" name="fullName" type="text" required autocomplete="name" />
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="phone">{t.contact.form.phone}</label>
+              <input id="phone" name="phone" type="tel" required autocomplete="tel" />
+            </div>
+            <div class="field" data-email-only>
+              <label for="email">{t.contact.form.email}</label>
+              <input id="email" name="email" type="email" autocomplete="email" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="service-select">{t.contact.form.service}</label>
+            <select id="service-select" name="service">
+              <option value="">{t.contact.form.serviceDefault}</option>
+              {categories.map((cat) => (
+                <option value={cat.id}>{cat.name}</option>
+              ))}
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="message">{t.contact.form.message}</label>
+            <textarea id="message" name="message" rows="4"></textarea>
+          </div>
+
+          <div class="field" data-email-only>
+            <label for="attachment">{t.contact.form.attachment}</label>
+            <input id="attachment" name="attachment" type="file" accept="image/*" />
+          </div>
+
+          <label class="consent">
+            <input type="checkbox" name="consent" required />
+            <span>{t.contact.form.consent}</span>
+          </label>
+
+          <button type="submit" class="btn btn-primary submit-btn" data-submit-email>
+            {t.contact.form.submitEmail}
+          </button>
+          <a href={site.viber.href} class="btn btn-primary submit-btn" data-submit-viber hidden>
+            {t.contact.form.submitViber}
+          </a>
+
+          <p class="viber-fallback" data-viber-fallback hidden>
+            {t.contact.form.viberFallback} <a href={site.phone.href}>{site.viber.number}</a>
+          </p>
+
+          <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-sub {
+    color: var(--color-ink-muted);
+    margin-inline: auto;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: start;
+  }
+
+  .info-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .info-cards li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 1.1rem 1.4rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+
+  .info-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .info-value {
+    color: var(--color-ink);
+    font-size: 0.95rem;
+  }
+
+  .info-link {
+    transition: color 0.25s ease;
+  }
+
+  .info-link:hover {
+    color: var(--color-gold-bright);
+  }
+
+  .info-social {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .info-social a {
+    transition: color 0.25s ease;
+  }
+
+  .info-social a:hover {
+    color: var(--color-gold-bright);
+  }
+
+  .map-frame {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    filter: grayscale(0.3) invert(0.92) contrast(0.9);
+  }
+
+  .contact-form-wrap {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+  }
+
+  .field-group.channel-select {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .channel-option {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-full);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.25s ease, color 0.25s ease, background-color 0.25s ease;
+    color: var(--color-ink-muted);
+  }
+
+  .channel-option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .channel-option:has(input:checked) {
+    border-color: var(--color-gold);
+    color: var(--color-gold-bright);
+    background: var(--color-gold-dim);
+  }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  label {
+    font-size: 0.82rem;
+    color: var(--color-ink-muted);
+  }
+
+  input[type='text'],
+  input[type='tel'],
+  input[type='email'],
+  input[type='file'],
+  select,
+  textarea {
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    padding: 0.7rem 0.9rem;
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--color-gold);
+  }
+
+  .consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    color: var(--color-ink-muted);
+  }
+
+  .consent input {
+    margin-top: 0.2rem;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding-block: 0.85rem;
+  }
+
+  .viber-fallback {
+    font-size: 0.8rem;
+    color: var(--color-ink-faint);
+    text-align: center;
+  }
+
+  .viber-fallback a {
+    color: var(--color-gold);
+  }
+
+  .form-status {
+    font-size: 0.88rem;
+    text-align: center;
+    min-height: 1.2em;
+  }
+
+  .form-status[data-state='success'] {
+    color: #8fd19e;
+  }
+
+  .form-status[data-state='error'] {
+    color: #e08b8b;
+  }
+
+  @media (max-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .field-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  if (form) {
+    const channelInputs = form.querySelectorAll<HTMLInputElement>('[data-channel-input]');
+    const emailOnlyFields = form.querySelectorAll<HTMLElement>('[data-email-only]');
+    const submitEmailBtn = form.querySelector<HTMLButtonElement>('[data-submit-email]');
+    const submitViberBtn = form.querySelector<HTMLAnchorElement>('[data-submit-viber]');
+    const viberFallback = form.querySelector<HTMLElement>('[data-viber-fallback]');
+    const status = form.querySelector<HTMLElement>('[data-form-status]');
+    const lang = form.dataset.lang === 'en' ? 'en' : 'mk';
+
+    const messages = {
+      mk: { success: 'Пораката е испратена! Ќе ве контактираме наскоро.', error: 'Настана грешка. Обидете се повторно или јавете се директно.' },
+      en: { success: "Message sent! We'll contact you shortly.", error: 'Something went wrong. Please try again or call us directly.' },
+    };
+
+    const updateChannel = () => {
+      const selected = form.querySelector<HTMLInputElement>('[data-channel-input]:checked')?.value ?? 'email';
+      const isEmail = selected === 'email';
+      emailOnlyFields.forEach((el) => {
+        el.style.display = isEmail ? '' : 'none';
+        const input = el.querySelector('input');
+        if (input) input.required = isEmail && input.type === 'email';
+      });
+      if (submitEmailBtn) submitEmailBtn.hidden = !isEmail;
+      if (submitViberBtn) submitViberBtn.hidden = isEmail;
+      if (viberFallback) viberFallback.hidden = isEmail;
+    };
+
+    channelInputs.forEach((input) => input.addEventListener('change', updateChannel));
+    updateChannel();
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch('/', { method: 'POST', body: formData });
+        if (!response.ok) throw new Error('Network response was not ok');
+        if (status) {
+          status.textContent = messages[lang].success;
+          status.dataset.state = 'success';
+        }
+        form.reset();
+        updateChannel();
+      } catch {
+        if (status) {
+          status.textContent = messages[lang].error;
+          status.dataset.state = 'error';
+        }
+      }
+    });
+
+    submitViberBtn?.addEventListener('click', (e) => {
+      if (!form.reportValidity()) {
+        e.preventDefault();
+        return;
+      }
+
+      e.preventDefault();
+      const get = (name: string) => (form.querySelector<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(`[name="${name}"]`)?.value ?? '').trim();
+      const serviceLabel = form.querySelector<HTMLSelectElement>('#service-select')?.selectedOptions[0]?.text ?? '';
+
+      const lines =
+        lang === 'mk'
+          ? [`Име: ${get('fullName')}`, `Телефон: ${get('phone')}`, serviceLabel && `Услуга: ${serviceLabel}`, get('message') && `Порака: ${get('message')}`]
+          : [`Name: ${get('fullName')}`, `Phone: ${get('phone')}`, serviceLabel && `Service: ${serviceLabel}`, get('message') && `Message: ${get('message')}`];
+
+      const text = lines.filter(Boolean).join('\n');
+      const baseHref = submitViberBtn.getAttribute('href') || '';
+      const url = `${baseHref}&text=${encodeURIComponent(text)}`;
+      window.location.href = url;
+    });
+  }
+</script>

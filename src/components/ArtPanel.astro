@@ -1,0 +1,51 @@
+---
+// Placeholder visual used wherever a real clinic photo belongs (plan §11.5).
+// Renders an abstract gold-on-dark panel with a line icon so the layout reads as
+// finished design rather than a broken image, until real photography is supplied.
+import { icons, type IconName } from '../lib/icons';
+
+interface Props {
+  icon?: IconName;
+  ratio?: string;
+  class?: string;
+}
+
+const { icon = 'tooth', ratio = '4 / 5', class: className = '' } = Astro.props;
+---
+
+<div class={`art-panel ${className}`} style={`aspect-ratio: ${ratio};`} role="img" aria-label="OMNIDENT">
+  <svg class="art-panel-icon" width="15%" viewBox="0 0 24 24" fill="none" set:html={icons[icon]} />
+</div>
+
+<style>
+  .art-panel {
+    position: relative;
+    border-radius: var(--radius-lg);
+    background:
+      radial-gradient(circle at 25% 20%, rgba(201, 168, 101, 0.22), transparent 55%),
+      radial-gradient(circle at 80% 85%, rgba(201, 168, 101, 0.14), transparent 50%),
+      linear-gradient(155deg, #201c17 0%, #14120f 60%, #0f0e0b 100%);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-border);
+  }
+
+  .art-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(201, 168, 101, 0.16) 1px, transparent 1px);
+    background-size: 22px 22px;
+    opacity: 0.5;
+  }
+
+  .art-panel-icon {
+    position: relative;
+    color: var(--color-gold);
+    opacity: 0.55;
+    min-width: 48px;
+    min-height: 48px;
+  }
+</style>

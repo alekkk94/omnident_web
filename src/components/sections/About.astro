@@ -1,0 +1,141 @@
+---
+import { getTranslations } from '../../i18n/utils';
+import type { Locale } from '../../i18n/ui';
+import { site } from '../../config/site';
+import ArtPanel from '../ArtPanel.astro';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = getTranslations(lang);
+---
+
+<section id="about" class="section about">
+  <div class="container about-grid">
+    <div class="about-media reveal">
+      <ArtPanel icon="heart" ratio="1 / 1" />
+    </div>
+
+    <div class="about-content">
+      <span class="eyebrow reveal">{t.about.eyebrow}</span>
+      <h2 class="reveal">
+        {t.about.headlineStart}<span class="accent">{t.about.headlineAccent}</span>{t.about.headlineEnd}
+      </h2>
+      <p class="about-philosophy reveal">{t.about.philosophy}</p>
+
+      <div class="about-counters reveal">
+        <div class="counter-card">
+          <span class="counter-value" data-counter data-target={site.rating.value} data-decimals="1" data-suffix={`/${site.rating.max.toFixed(1)}`}>0</span>
+          <span class="counter-label">{t.about.counterRatingLabel}</span>
+        </div>
+        <div class="counter-card">
+          <span class="counter-value" data-counter data-target="1.8" data-decimals="1" data-suffix="K+">0</span>
+          <span class="counter-label">{t.about.counterPatientsLabel}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: center;
+  }
+
+  .about-media {
+    max-width: 420px;
+  }
+
+  .about-content h2 {
+    font-size: clamp(2.1rem, 4vw, 3rem);
+    margin-bottom: 1.5rem;
+  }
+
+  .about-philosophy {
+    color: var(--color-ink-muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    max-width: 56ch;
+  }
+
+  .about-counters {
+    display: flex;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .counter-value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    color: var(--color-gold-bright);
+  }
+
+  .counter-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--color-ink-muted);
+    margin-top: 0.35rem;
+  }
+
+  @media (max-width: 900px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+    .about-media {
+      margin-inline: auto;
+    }
+  }
+</style>
+
+<script>
+  const counters = document.querySelectorAll<HTMLElement>('[data-counter]');
+
+  const animate = (el: HTMLElement) => {
+    const target = parseFloat(el.dataset.target || '0');
+    const decimals = parseInt(el.dataset.decimals || '0', 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = target * eased;
+      el.textContent = `${value.toFixed(decimals)}${suffix}`;
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+
+    requestAnimationFrame(tick);
+  };
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          if (reduceMotion) {
+            const target = parseFloat(el.dataset.target || '0');
+            const decimals = parseInt(el.dataset.decimals || '0', 10);
+            el.textContent = `${target.toFixed(decimals)}${el.dataset.suffix || ''}`;
+          } else {
+            animate(el);
+          }
+          obs.unobserve(el);
+        }
+      }
+    },
+    { threshold: 0.5 }
+  );
+
+  counters.forEach((el) => observer.observe(el));
+</script>

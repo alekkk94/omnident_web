@@ -1,0 +1,108 @@
+---
+import { getTranslations, localizedPath } from '../i18n/utils';
+import type { Locale } from '../i18n/ui';
+import { site } from '../config/site';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = getTranslations(lang);
+const year = new Date().getFullYear();
+
+const navLinks = [
+  { href: '#hero', label: t.nav.home },
+  { href: '#services', label: t.nav.services },
+  { href: '#about', label: t.nav.about },
+  { href: '#contact', label: t.nav.contact },
+];
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href={localizedPath(lang)} class="logo">OMNIDENT</a>
+      <p>{t.footer.tagline}</p>
+    </div>
+
+    <nav aria-label="Footer">
+      <ul>
+        {navLinks.map((link) => (
+          <li><a href={link.href}>{link.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="footer-social">
+      <a href={site.social.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href={site.social.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <p>&copy; {year} OMNIDENT. {t.footer.rights}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    background: var(--color-bg-alt);
+    padding-top: 3.5rem;
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .footer-brand .logo {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    letter-spacing: 0.1em;
+  }
+
+  .footer-brand p {
+    margin-top: 0.5rem;
+    color: var(--color-ink-faint);
+    font-size: 0.85rem;
+  }
+
+  nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  nav a,
+  .footer-social a {
+    color: var(--color-ink-muted);
+    font-size: 0.9rem;
+    transition: color 0.25s ease;
+  }
+
+  nav a:hover,
+  .footer-social a:hover {
+    color: var(--color-gold-bright);
+  }
+
+  .footer-social {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid var(--color-border);
+    padding-block: 1.5rem;
+  }
+
+  .footer-bottom p {
+    color: var(--color-ink-faint);
+    font-size: 0.8rem;
+  }
+</style>

@@ -1,0 +1,227 @@
+---
+import { getTranslations, getServices } from '../../i18n/utils';
+import type { Locale } from '../../i18n/ui';
+import { icons, serviceIconMap } from '../../lib/icons';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = getTranslations(lang);
+const categories = getServices(lang);
+---
+
+<section id="services" class="section services">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow reveal">{t.services.eyebrow}</span>
+      <h2 class="reveal">
+        {t.services.headlineStart}<span class="accent">{t.services.headlineAccent}</span>{t.services.headlineEnd}
+      </h2>
+      <p class="services-sub reveal">{t.services.subheading}</p>
+    </div>
+
+    <div class="services-grid">
+      {categories.map((cat) => (
+        <article class="service-card reveal" data-service-card>
+          <div class="service-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" set:html={icons[serviceIconMap[cat.icon]]} />
+          </div>
+          <h3>{cat.name}</h3>
+          <p class="service-desc">{cat.description}</p>
+
+          <button
+            type="button"
+            class="service-toggle"
+            data-service-toggle
+            aria-expanded="false"
+          >
+            <span class="label-more">{t.services.expandLabel}</span>
+            <span class="label-less">{t.services.closeLabel}</span>
+            <span class="toggle-icon" aria-hidden="true">+</span>
+          </button>
+
+          <div class="service-panel" data-service-panel>
+            <ul class="service-list">
+              {cat.subservices.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+            <a class="btn btn-primary service-cta" href="#contact" data-service-cta={cat.id}>
+              {t.services.ctaLabel}
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-sub {
+    color: var(--color-ink-muted);
+    margin-inline: auto;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .service-card:hover {
+    border-color: var(--color-border-strong);
+  }
+
+  .service-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-gold-dim);
+    color: var(--color-gold);
+    margin-bottom: 1.25rem;
+  }
+
+  .service-card h3 {
+    font-size: 1.35rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .service-desc {
+    color: var(--color-ink-muted);
+    font-size: 0.92rem;
+    line-height: 1.65;
+    flex-grow: 1;
+  }
+
+  .service-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--color-gold);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    padding: 0;
+    align-self: flex-start;
+  }
+
+  .service-toggle .label-less {
+    display: none;
+  }
+
+  .service-toggle[aria-expanded='true'] .label-more {
+    display: none;
+  }
+
+  .service-toggle[aria-expanded='true'] .label-less {
+    display: inline;
+  }
+
+  .toggle-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border-strong);
+    font-size: 0.9rem;
+    line-height: 1;
+    transition: transform 0.3s ease;
+  }
+
+  .service-toggle[aria-expanded='true'] .toggle-icon {
+    transform: rotate(45deg);
+  }
+
+  .service-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.4s var(--ease-out), opacity 0.4s var(--ease-out);
+  }
+
+  .service-panel > * {
+    overflow: hidden;
+  }
+
+  .service-card[data-open='true'] .service-panel {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    margin-top: 1.25rem;
+  }
+
+  .service-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    padding-top: 0.25rem;
+    padding-bottom: 1.25rem;
+    font-size: 0.88rem;
+    color: var(--color-ink-muted);
+  }
+
+  .service-list li {
+    padding-left: 1.1rem;
+    position: relative;
+  }
+
+  .service-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-gold);
+  }
+
+  .service-cta {
+    width: 100%;
+    padding-block: 0.75rem;
+    font-size: 0.82rem;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-service-card]').forEach((card) => {
+    const toggle = card.querySelector<HTMLButtonElement>('[data-service-toggle]');
+    if (!toggle) return;
+    toggle.addEventListener('click', () => {
+      const isOpen = card.dataset.open === 'true';
+      card.dataset.open = String(!isOpen);
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+
+  // Pre-select the matching option in the contact form when a service CTA is clicked.
+  document.querySelectorAll<HTMLAnchorElement>('[data-service-cta]').forEach((cta) => {
+    cta.addEventListener('click', () => {
+      const select = document.querySelector<HTMLSelectElement>('#service-select');
+      const serviceId = cta.dataset.serviceCta;
+      if (select && serviceId) {
+        select.value = serviceId;
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
+  });
+</script>

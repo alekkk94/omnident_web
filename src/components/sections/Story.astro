@@ -1,0 +1,92 @@
+---
+import { getTranslations } from '../../i18n/utils';
+import type { Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = getTranslations(lang);
+---
+
+<section id="story" class="section story">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow reveal">{t.story.eyebrow}</span>
+      <h2 class="reveal">
+        {t.story.headlineStart}<span class="accent">{t.story.headlineAccent}</span>{t.story.headlineEnd}
+      </h2>
+    </div>
+
+    <ol class="timeline">
+      {t.story.nodes.map((node, i) => (
+        <li class="timeline-node reveal">
+          <div class="timeline-marker">
+            <span class="timeline-dot"></span>
+            {i < t.story.nodes.length - 1 && <span class="timeline-line"></span>}
+          </div>
+          <div class="timeline-content">
+            <h3>{node.title}</h3>
+            <p>{node.description}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  .timeline-node {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: 1.5rem;
+  }
+
+  .timeline-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .timeline-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--color-gold-bright);
+    box-shadow: 0 0 0 4px var(--color-gold-dim);
+    flex-shrink: 0;
+  }
+
+  .timeline-line {
+    flex-grow: 1;
+    width: 1px;
+    background: var(--color-border-strong);
+    margin-block: 0.5rem;
+  }
+
+  .timeline-content {
+    padding-bottom: 2.75rem;
+  }
+
+  .timeline-content h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-content p {
+    font-size: 0.9rem;
+    color: var(--color-ink-muted);
+    line-height: 1.65;
+    max-width: 52ch;
+  }
+
+  .timeline-node:last-child .timeline-content {
+    padding-bottom: 0;
+  }
+</style>
