@@ -1,8 +1,13 @@
 ---
 import { getTranslations } from '../../i18n/utils';
 import type { Locale } from '../../i18n/ui';
-import ArtPanel from '../ArtPanel.astro';
-import type { IconName } from '../../lib/icons';
+import Figure from '../Figure.astro';
+import galleryImage1 from '../../assets/images/clinic/gallery-treatment-room-1.jpg';
+import galleryImage2 from '../../assets/images/clinic/gallery-treatment-room-2.jpg';
+import galleryImage3 from '../../assets/images/clinic/gallery-treatment-chair-teal.jpg';
+import galleryImage4 from '../../assets/images/clinic/gallery-waiting-area.jpg';
+import galleryImage5 from '../../assets/images/clinic/gallery-equipment-closeup.jpg';
+import galleryImage6 from '../../assets/images/clinic/gallery-instruments-macro.jpg';
 
 interface Props {
   lang: Locale;
@@ -11,13 +16,13 @@ interface Props {
 const { lang } = Astro.props;
 const t = getTranslations(lang);
 
-const polaroids: { icon: IconName; angle: number }[] = [
-  { icon: 'tooth', angle: -4 },
-  { icon: 'smile', angle: 3 },
-  { icon: 'sparkle', angle: -2 },
-  { icon: 'heart', angle: 5 },
-  { icon: 'implant', angle: -3 },
-  { icon: 'star', angle: 2 },
+const polaroids = [
+  { image: galleryImage1, angle: -4 },
+  { image: galleryImage2, angle: 3 },
+  { image: galleryImage3, angle: -2 },
+  { image: galleryImage4, angle: 5 },
+  { image: galleryImage5, angle: -3 },
+  { image: galleryImage6, angle: 2 },
 ];
 ---
 
@@ -32,9 +37,9 @@ const polaroids: { icon: IconName; angle: number }[] = [
     </div>
 
     <div class="polaroid-wall">
-      {polaroids.map((p) => (
+      {polaroids.map((p, i) => (
         <div class="polaroid reveal" style={`--angle: ${p.angle}deg;`}>
-          <ArtPanel icon={p.icon} ratio="1 / 1" />
+          <Figure src={p.image} alt={t.gallery.imageAlts[i]} ratio="1 / 1" sizes="(min-width: 900px) 30vw, 45vw" />
         </div>
       ))}
     </div>

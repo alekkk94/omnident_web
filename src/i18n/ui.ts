@@ -27,9 +27,8 @@ export const ui = {
         'Естетска и општа стоматологија во срцето на Скопје — прецизна нега, топла атмосфера и резултати на кои им верувате.',
       ctaPrimary: 'Закажи термин',
       ctaSecondary: 'Нашите услуги',
-      badgeRating: 'Google оценка',
-      badgePatients: 'задоволни пациенти',
       scrollHint: 'Скролувај',
+      imageAlt: 'Светла и модерна стоматолошка ординација (илустративна фотографија)',
     },
     about: {
       eyebrow: 'За нас',
@@ -38,8 +37,7 @@ export const ui = {
       headlineEnd: ' пристап',
       philosophy:
         'Останете смирени и насмевнете се. Во OMNIDENT веруваме дека посетата на стоматолог не треба да предизвикува стрес — затоа градиме секој третман околу вашата удобност, со прецизност поткрепена на модерни протоколи и искрена комуникација.',
-      counterPatientsLabel: 'задоволни пациенти',
-      counterRatingLabel: 'Google оценка',
+      imageAlt: 'Стоматолошки стол во светла ординација со сина тапацерија (илустративна фотографија)',
     },
     services: {
       eyebrow: 'Услуги',
@@ -74,7 +72,7 @@ export const ui = {
         { title: 'Естетска стоматологија', description: 'Проширивме фокус кон естетски третмани — за насмевки кои изгледаат природно и трајно.' },
         { title: 'Имплантологија', description: 'Воведовме современи имплантолошки протоколи за трајни решенија при губење на заби.' },
         { title: 'Континуирано усовршување', description: 'Тимот постојано се едуцира и ги следи најновите протоколи во стоматологијата.' },
-        { title: '1.8K+ доверливи пациенти', description: 'Денес, илјадници пациенти ни ја доверуваат својата насмевка.' },
+        { title: 'Континуирана грижа', description: 'Секој пациент добива план за одржување и повторни контроли по завршениот третман.' },
       ],
     },
     gallery: {
@@ -84,6 +82,14 @@ export const ui = {
       headlineEnd: '',
       subheading: 'Моменти од ординацијата — вистински, неулепшани.',
       placeholderNote: 'Простор за фотографии — чекаме реални слики од ординацијата.',
+      imageAlts: [
+        'Светла ординација со бело-сина стоматолошка опрема (илустративна фотографија)',
+        'Стоматолошки стол во неутрална ординација (илустративна фотографија)',
+        'Стоматолошки стол со тиркизна тапацерија покрај розев ѕид (илустративна фотографија)',
+        'Чекалница со тиркизни каучеви во светла просторија (илустративна фотографија)',
+        'Крупен план на стоматолошка опрема (илустративна фотографија)',
+        'Крупен план на стоматолошки инструменти (илустративна фотографија)',
+      ],
     },
     contact: {
       eyebrow: 'Контакт',
@@ -120,9 +126,6 @@ export const ui = {
       tagline: 'Дентална Естетика · Скопје',
       rights: 'Сите права задржани.',
     },
-    chat: {
-      label: 'Закажи преглед',
-    },
   },
   en: {
     meta: {
@@ -148,9 +151,8 @@ export const ui = {
         'Esthetic and general dentistry in the heart of Skopje — precise care, a warm atmosphere, and results you can trust.',
       ctaPrimary: 'Book an appointment',
       ctaSecondary: 'Our services',
-      badgeRating: 'Google rating',
-      badgePatients: 'satisfied patients',
       scrollHint: 'Scroll',
+      imageAlt: 'Bright, modern dental treatment room (illustrative photo)',
     },
     about: {
       eyebrow: 'About us',
@@ -159,8 +161,7 @@ export const ui = {
       headlineEnd: ' approach',
       philosophy:
         "Stay calm and smile. At OMNIDENT we believe a dental visit shouldn't cause stress — that's why we build every treatment around your comfort, backed by precise, modern protocols and honest communication.",
-      counterPatientsLabel: 'satisfied patients',
-      counterRatingLabel: 'Google rating',
+      imageAlt: 'Dental chair in a bright treatment room with blue upholstery (illustrative photo)',
     },
     services: {
       eyebrow: 'Services',
@@ -195,7 +196,7 @@ export const ui = {
         { title: 'Esthetic dentistry', description: 'We expanded our focus toward esthetic treatments — for smiles that look natural and last.' },
         { title: 'Implantology', description: 'We introduced modern implantology protocols for lasting solutions to tooth loss.' },
         { title: 'Continuous improvement', description: 'Our team keeps training and following the latest protocols in dentistry.' },
-        { title: '1.8K+ trusted patients', description: 'Today, thousands of patients trust us with their smile.' },
+        { title: 'Continuing care', description: 'Every patient receives a maintenance plan and follow-up checks after treatment is complete.' },
       ],
     },
     gallery: {
@@ -205,6 +206,14 @@ export const ui = {
       headlineEnd: '',
       subheading: 'Real moments from the clinic — unfiltered.',
       placeholderNote: 'Photo space — awaiting real clinic photos.',
+      imageAlts: [
+        'Bright treatment room with white and blue dental equipment (illustrative photo)',
+        'Dental chair in a neutral-toned treatment room (illustrative photo)',
+        'Dental chair with teal upholstery beside a pink accent wall (illustrative photo)',
+        'Waiting area with teal sofas in a bright room (illustrative photo)',
+        'Close-up of dental equipment (illustrative photo)',
+        'Close-up of dental instruments (illustrative photo)',
+      ],
     },
     contact: {
       eyebrow: 'Contact',
@@ -239,9 +248,6 @@ export const ui = {
     footer: {
       tagline: 'Dental Esthetics · Skopje',
       rights: 'All rights reserved.',
-    },
-    chat: {
-      label: 'Book a check-up',
     },
   },
 } as const;

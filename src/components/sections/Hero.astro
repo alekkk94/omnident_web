@@ -1,8 +1,8 @@
 ---
 import { getTranslations } from '../../i18n/utils';
 import type { Locale } from '../../i18n/ui';
-import { site } from '../../config/site';
-import ArtPanel from '../ArtPanel.astro';
+import Figure from '../Figure.astro';
+import heroImage from '../../assets/images/clinic/hero-treatment-room-wide.jpg';
 
 interface Props {
   lang: Locale;
@@ -25,27 +25,10 @@ const t = getTranslations(lang);
         <a class="btn btn-primary" href="#contact">{t.hero.ctaPrimary}</a>
         <a class="btn btn-outline" href="#services">{t.hero.ctaSecondary}</a>
       </div>
-
-      <div class="hero-proof reveal">
-        <div class="proof-avatars" aria-hidden="true">
-          <span></span><span></span><span></span><span></span>
-        </div>
-        <div class="proof-text">
-          <strong>{site.patients}</strong> {t.hero.badgePatients}
-        </div>
-      </div>
     </div>
 
     <div class="hero-media reveal">
-      <ArtPanel icon="smile" ratio="4 / 5" />
-      <div class="hero-badge hero-badge-rating">
-        <span class="hero-badge-value">★ {site.rating.value.toFixed(1)}/{site.rating.max.toFixed(1)}</span>
-        <span class="hero-badge-label">{t.hero.badgeRating}</span>
-      </div>
-      <div class="hero-badge hero-badge-patients">
-        <span class="hero-badge-value">{site.patients}</span>
-        <span class="hero-badge-label">{t.hero.badgePatients}</span>
-      </div>
+      <Figure src={heroImage} alt={t.hero.imageAlt} ratio="4 / 5" loading="eager" sizes="(min-width: 900px) 45vw, 90vw" />
     </div>
   </div>
 
@@ -101,75 +84,8 @@ const t = getTranslations(lang);
     margin-top: 2.25rem;
   }
 
-  .hero-proof {
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-    margin-top: 2.75rem;
-  }
-
-  .proof-avatars {
-    display: flex;
-  }
-
-  .proof-avatars span {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--color-gold-bright), var(--color-gold));
-    border: 2px solid var(--color-bg);
-    margin-left: -10px;
-  }
-
-  .proof-avatars span:first-child {
-    margin-left: 0;
-  }
-
-  .proof-text {
-    font-size: 0.85rem;
-    color: var(--color-ink-muted);
-  }
-
-  .proof-text strong {
-    color: var(--color-ink);
-  }
-
   .hero-media {
     position: relative;
-  }
-
-  .hero-badge {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    background: rgba(21, 19, 16, 0.9);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius-md);
-    padding: 0.75rem 1.1rem;
-    box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.7);
-  }
-
-  .hero-badge-value {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    color: var(--color-gold-bright);
-  }
-
-  .hero-badge-label {
-    font-size: 0.7rem;
-    color: var(--color-ink-muted);
-    letter-spacing: 0.03em;
-  }
-
-  .hero-badge-rating {
-    top: -1rem;
-    left: -1rem;
-  }
-
-  .hero-badge-patients {
-    bottom: -1rem;
-    right: -1rem;
   }
 
   .scroll-hint {

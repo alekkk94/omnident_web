@@ -3,10 +3,8 @@ import '../styles/global.css';
 import { getTranslations, localizedPath } from '../i18n/utils';
 import type { Locale } from '../i18n/ui';
 import { site } from '../config/site';
-import Preloader from '../components/Preloader.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import ChatButton from '../components/ChatButton.astro';
 
 interface Props {
   lang: Locale;
@@ -39,11 +37,6 @@ const jsonLd = {
     closes: '19:00',
   },
   sameAs: [site.social.instagram, site.social.facebook],
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: site.rating.value,
-    bestRating: site.rating.max,
-  },
   url: canonicalUrl.toString(),
 };
 ---
@@ -74,14 +67,12 @@ const jsonLd = {
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
   </head>
   <body>
-    <Preloader />
     <a href="#main" class="skip-link">Skip to content</a>
     <Header lang={lang} />
     <main id="main">
       <slot />
     </main>
     <Footer lang={lang} />
-    <ChatButton lang={lang} />
 
     <script>
       const observer = new IntersectionObserver(

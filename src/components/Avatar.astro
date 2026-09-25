@@ -1,0 +1,60 @@
+---
+// Neutral initial-avatar for team slots — a tinted circle with the person's initials.
+// Never a stock face (see IMAGES.md and the WO-3b three-tier placeholder rule): a stock
+// photo of a stranger captioned with a real dentist's name is a false statement about that
+// person. When a real `photo` is supplied, it renders through Figure with no code change
+// required at the call site — WO-6 swaps photos in 1:1.
+import type { ImageMetadata } from 'astro';
+import Figure from './Figure.astro';
+
+interface Props {
+  name: string;
+  photo?: ImageMetadata;
+  size?: string;
+  class?: string;
+}
+
+const { name, photo, size = '96px', class: className = '' } = Astro.props;
+
+const initials = name
+  .trim()
+  .split(/\s+/)
+  .map((part) => part[0] ?? '')
+  .filter(Boolean)
+  .slice(0, 2)
+  .join('')
+  .toUpperCase();
+---
+
+{
+  photo ? (
+    <Figure src={photo} alt={name} ratio="1 / 1" class={`avatar-photo ${className}`} />
+  ) : (
+    <div class={`avatar-initials ${className}`} style={`--avatar-size: ${size};`} role="img" aria-label={name}>
+      <span aria-hidden="true">{initials}</span>
+    </div>
+  )
+}
+
+<style>
+  .avatar-initials {
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-gold-dim);
+    color: var(--color-gold-bright);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: calc(var(--avatar-size) * 0.36);
+    flex-shrink: 0;
+  }
+
+  .avatar-photo {
+    width: var(--avatar-size, 96px);
+    height: var(--avatar-size, 96px);
+    border-radius: 50%;
+  }
+</style>

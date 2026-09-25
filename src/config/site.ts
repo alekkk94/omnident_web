@@ -21,7 +21,10 @@ export const site = {
     number: '+389 72 260 022',
     href: 'viber://chat?number=%2B38972260022',
   },
-  // PLACEHOLDER — confirm destination inbox for form submissions (plan §11.3).
+  // Schema-only — used solely for the JSON-LD Dentist markup in src/layouts/Layout.astro.
+  // The contact form does NOT read this value; the real submission destination is the
+  // CONTACT_TO_EMAIL Cloudflare Pages environment variable (see functions/README.md),
+  // deliberately kept out of the repo. PLACEHOLDER — confirm before launch (plan §11.3).
   email: 'info@omnident.mk',
   hours: {
     mk: 'Понеделник–Петок 10:00–19:00',
@@ -31,9 +34,4 @@ export const site = {
     instagram: 'https://instagram.com/omnident_',
     facebook: 'https://facebook.com/omnidentskopje',
   },
-  rating: {
-    value: 4.2,
-    max: 5.0,
-  },
-  patients: '1.8K+',
 } as const;
