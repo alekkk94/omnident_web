@@ -5,6 +5,9 @@ import { defaultLocale, type Locale } from './ui';
 // Adding `it` and `el` (WO-11) means adding two columns here — no routing logic changes.
 export const routes = {
   home: { mk: '', en: '' },
+  team: { mk: 'tim', en: 'team' },
+  services: { mk: 'uslugi', en: 'services' },
+  prices: { mk: 'ceni', en: 'prices' },
   contact: { mk: 'kontakt', en: 'contact' },
 } as const;
 

@@ -4,6 +4,35 @@ export const defaultLocale: Locale = 'mk';
 
 export const ui = {
   mk: {
+    pages: {
+      placeholderNotice:
+        'Оваа страница прикажува ПРИМЕРОЦИ. Имињата, биографиите и цените се измислени и служат само за приказ на структурата — не се вистински податоци на OMNIDENT.',
+      team: {
+        eyebrow: 'Тим',
+        headline: 'Луѓето зад вашата насмевка',
+        subheading: 'Мал тим, јасни одговорности и континуирано усовршување.',
+        educationLabel: 'Образование',
+        focusLabel: 'Фокус',
+        languagesLabel: 'Јазици',
+      },
+      services: {
+        eyebrow: 'Услуги',
+        headline: 'Што работиме',
+        subheading: 'Секоја услуга со јасен опис, времетраење и ориентациона цена.',
+        priceLabel: 'Цена',
+        visitsLabel: 'Посети',
+        durationLabel: 'Времетраење',
+      },
+      prices: {
+        eyebrow: 'Цени',
+        headline: 'Ориентациони цени',
+        subheading:
+          'Цените се дадени како распон во евра. Конечниот план и цената се определуваат по преглед.',
+        colTreatment: 'Услуга',
+        colPrice: 'Распон',
+        colVisits: 'Посети',
+      },
+    },
     notFound: {
       message: 'Страницата не постои или е преместена.',
       back: 'Врати се на почетна',
@@ -118,6 +147,35 @@ export const ui = {
     },
   },
   en: {
+    pages: {
+      placeholderNotice:
+        'This page shows PLACEHOLDER content. The names, biographies and prices are invented and exist only to show the structure — they are not real OMNIDENT data.',
+      team: {
+        eyebrow: 'Team',
+        headline: 'The people behind your smile',
+        subheading: 'A small team, clear responsibilities and continuous training.',
+        educationLabel: 'Education',
+        focusLabel: 'Focus',
+        languagesLabel: 'Languages',
+      },
+      services: {
+        eyebrow: 'Services',
+        headline: 'What we do',
+        subheading: 'Every service with a clear description, duration and indicative price.',
+        priceLabel: 'Price',
+        visitsLabel: 'Visits',
+        durationLabel: 'Duration',
+      },
+      prices: {
+        eyebrow: 'Prices',
+        headline: 'Indicative prices',
+        subheading:
+          'Prices are given as a range in euro. The final plan and price are set after an examination.',
+        colTreatment: 'Service',
+        colPrice: 'Range',
+        colVisits: 'Visits',
+      },
+    },
     notFound: {
       message: 'This page does not exist or has moved.',
       back: 'Back to home',

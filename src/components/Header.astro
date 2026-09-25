@@ -18,8 +18,9 @@ const contact = getPath(lang, 'contact');
 
 // Section anchors are absolute so they work from any page, not just the home page.
 const navLinks = [
-  { href: home, label: t.nav.home },
-  { href: `${home}#services`, label: t.nav.services },
+  { href: getPath(lang, 'services'), label: t.nav.services },
+  { href: getPath(lang, 'prices'), label: t.pages.prices.eyebrow },
+  { href: getPath(lang, 'team'), label: t.pages.team.eyebrow },
   { href: `${home}#about`, label: t.nav.about },
   { href: contact, label: t.nav.contact },
 ];

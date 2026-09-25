@@ -1,0 +1,39 @@
+---
+// Visible, deliberately unmissable banner shown on any page rendering content whose
+// frontmatter sets `placeholder: true`. It exists so invented staff names or indicative
+// prices cannot reach production unnoticed — deleting the placeholder content removes it
+// automatically. See CONFIGURATION.md.
+import { getTranslations } from '../i18n/utils';
+import type { Locale } from '../i18n/ui';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = getTranslations(lang);
+---
+
+<div class="placeholder-notice" role="note">
+  <strong>⚠</strong>
+  <p>{t.pages.placeholderNotice}</p>
+</div>
+
+<style>
+  .placeholder-notice {
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-start;
+    background: #fdf4e3;
+    border: 1px solid #e0b877;
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    margin-bottom: var(--space-6);
+    color: #6b4a12;
+    font-size: var(--text-sm);
+  }
+
+  .placeholder-notice p {
+    margin: 0;
+  }
+</style>

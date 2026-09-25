@@ -27,6 +27,7 @@ const services = defineCollection({
           })
         )
         .optional(),
+      placeholder: z.boolean().default(false),
       draft: z.boolean().default(false),
     }),
 });
@@ -47,8 +48,11 @@ const team = defineCollection({
       ),
       focus: z.array(z.string()),
       languages: z.array(z.string()),
-      photo: image(),
+      photo: image().optional(),
       order: z.number(),
+      // Obviously-fake stand-in data. Any page rendering an entry with this set true shows a
+      // visible notice, so placeholder staff or prices cannot reach production unnoticed.
+      placeholder: z.boolean().default(false),
       draft: z.boolean().default(false),
     }),
 });

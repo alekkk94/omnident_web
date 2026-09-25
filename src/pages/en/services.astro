@@ -1,0 +1,72 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PlaceholderNotice from '../../components/PlaceholderNotice.astro';
+import { getTranslations } from '../../i18n/utils';
+import { getCollection } from 'astro:content';
+import { getPath } from '../../i18n/routes';
+const lang = 'en' as const;
+const t = getTranslations(lang);
+
+const entries = (await getCollection('services'))
+  .filter((e) => e.id.startsWith(`${lang}/`) && !e.data.draft)
+  .sort((a, b) => a.data.order - b.data.order);
+const contactHref = (id: string) =>
+  `${getPath(lang, 'contact')}?service=${id.split('/').pop()}`;
+const hasPlaceholder = entries.some((e) => e.data.placeholder);
+---
+
+<Layout lang={lang} routeKey="services">
+  <section class="section">
+    <div class="container">
+      {hasPlaceholder && <PlaceholderNotice lang={lang} />}
+      <div class="section-head">
+        <span class="eyebrow">{t.pages.services.eyebrow}</span>
+        <h1>{t.pages.services.headline}</h1>
+        <p>{t.pages.services.subheading}</p>
+      </div>
+
+      <div class="svc-grid">
+        {entries.map((svc) => (
+          <article class="card">
+            <h2>{svc.data.title}</h2>
+            <p class="svc-summary">{svc.data.summary}</p>
+            <ul class="svc-list">
+              {svc.data.subservices.map((s) => <li>{s}</li>)}
+            </ul>
+            <dl class="svc-meta">
+              <div><dt>{t.pages.services.priceLabel}</dt><dd>{svc.data.priceFrom}&ndash;{svc.data.priceTo} &euro;</dd></div>
+              <div><dt>{t.pages.services.visitsLabel}</dt><dd>{svc.data.visits}</dd></div>
+              <div><dt>{t.pages.services.durationLabel}</dt><dd>{svc.data.duration}</dd></div>
+            </dl>
+            <a class="btn btn-outline" href={contactHref(svc.id)}>{t.nav.cta}</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+  .svc-grid article { display: flex; flex-direction: column; }
+  .svc-grid h2 { font-size: var(--text-h3); }
+  .svc-summary { margin-top: var(--space-2); color: var(--color-ink-muted); font-size: var(--text-sm); }
+  .svc-list { margin-top: var(--space-4); font-size: var(--text-sm); display: grid; gap: var(--space-1); }
+  .svc-list li::before { content: '\2014\00a0'; color: var(--color-primary); }
+  .svc-meta {
+    margin: var(--space-5) 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+    font-size: var(--text-xs);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+  .svc-meta dt { color: var(--color-ink-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .svc-meta dd { margin: var(--space-1) 0 0; color: var(--color-ink); font-weight: 600; }
+  .svc-grid .btn { margin-top: auto; align-self: flex-start; }
+</style>

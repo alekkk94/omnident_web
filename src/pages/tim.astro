@@ -1,0 +1,67 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PlaceholderNotice from '../components/PlaceholderNotice.astro';
+import { getTranslations } from '../i18n/utils';
+import { getCollection } from 'astro:content';
+import Avatar from '../components/Avatar.astro';
+
+const lang = 'mk' as const;
+const t = getTranslations(lang);
+
+const entries = (await getCollection('team'))
+  .filter((e) => e.id.startsWith(`${lang}/`) && !e.data.draft)
+  .sort((a, b) => a.data.order - b.data.order);
+const hasPlaceholder = entries.some((e) => e.data.placeholder);
+---
+
+<Layout lang={lang} routeKey="team">
+  <section class="section">
+    <div class="container">
+      {hasPlaceholder && <PlaceholderNotice lang={lang} />}
+      <div class="section-head">
+        <span class="eyebrow">{t.pages.team.eyebrow}</span>
+        <h1>{t.pages.team.headline}</h1>
+        <p>{t.pages.team.subheading}</p>
+      </div>
+
+      <div class="team-grid">
+        {entries.map((member) => (
+          <article class="card team-card">
+            <Avatar name={member.data.name} photo={member.data.photo} size="88px" />
+            <h2>{member.data.name}</h2>
+            <p class="team-role">{member.data.role}</p>
+            <ul class="team-creds">
+              {member.data.credentials.map((c) => <li>{c}</li>)}
+            </ul>
+            <dl>
+              <dt>{t.pages.team.educationLabel}</dt>
+              <dd>
+                <ul>
+                  {member.data.education.map((e) => <li>{e.year} &mdash; {e.title}, {e.institution}</li>)}
+                </ul>
+              </dd>
+              <dt>{t.pages.team.focusLabel}</dt>
+              <dd>{member.data.focus.join(', ')}</dd>
+              <dt>{t.pages.team.languagesLabel}</dt>
+              <dd>{member.data.languages.join(', ')}</dd>
+            </dl>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+  .team-card h2 { font-size: var(--text-h3); margin-top: var(--space-4); }
+  .team-role { color: var(--color-primary); font-size: var(--text-sm); margin-top: var(--space-1); }
+  .team-creds { margin-top: var(--space-3); font-size: var(--text-sm); color: var(--color-ink-muted); }
+  dl { margin: var(--space-4) 0 0; font-size: var(--text-sm); }
+  dt { font-weight: 600; color: var(--color-ink); margin-top: var(--space-3); }
+  dd { margin: var(--space-1) 0 0; color: var(--color-ink-muted); }
+</style>

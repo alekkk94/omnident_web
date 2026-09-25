@@ -16,10 +16,11 @@ export const site = {
     display: '072 260 022',
     href: 'tel:+38972260022',
   },
-  // PLACEHOLDER — confirm the clinic's actual Viber number before launch (plan §11.3).
+  // Confirmed by the owner 2026-09-26. This is the number that receives Viber enquiries.
+  // To change it, edit BOTH fields below — see CONFIGURATION.md.
   viber: {
-    number: '+389 72 260 022',
-    href: 'viber://chat?number=%2B38972260022',
+    number: '+389 76 278 552',
+    href: 'viber://chat?number=%2B38976278552',
   },
   // Schema-only — used solely for the JSON-LD Dentist markup in src/layouts/Layout.astro.
   // The contact form does NOT read this value; the real submission destination is the

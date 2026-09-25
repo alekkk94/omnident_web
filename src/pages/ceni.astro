@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PlaceholderNotice from '../components/PlaceholderNotice.astro';
+import { getTranslations } from '../i18n/utils';
+import { getCollection } from 'astro:content';
+
+const lang = 'mk' as const;
+const t = getTranslations(lang);
+
+const entries = (await getCollection('services'))
+  .filter((e) => e.id.startsWith(`${lang}/`) && !e.data.draft)
+  .sort((a, b) => a.data.order - b.data.order);
+const hasPlaceholder = entries.some((e) => e.data.placeholder);
+---
+
+<Layout lang={lang} routeKey="prices">
+  <section class="section">
+    <div class="container">
+      {hasPlaceholder && <PlaceholderNotice lang={lang} />}
+      <div class="section-head">
+        <span class="eyebrow">{t.pages.prices.eyebrow}</span>
+        <h1>{t.pages.prices.headline}</h1>
+        <p>{t.pages.prices.subheading}</p>
+      </div>
+
+      <table class="price-table">
+        <thead>
+          <tr>
+            <th>{t.pages.prices.colTreatment}</th>
+            <th>{t.pages.prices.colPrice}</th>
+            <th>{t.pages.prices.colVisits}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {entries.map((svc) => (
+            <tr>
+              <td>{svc.data.title}</td>
+              <td>{svc.data.priceFrom}&ndash;{svc.data.priceTo} &euro;</td>
+              <td>{svc.data.visits}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .price-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+  .price-table th,
+  .price-table td {
+    text-align: left;
+    padding: var(--space-4) var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .price-table th {
+    font-weight: 600;
+    color: var(--color-ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: var(--text-xs);
+  }
+  .price-table td:nth-child(2) { font-weight: 600; color: var(--color-ink); white-space: nowrap; }
+</style>

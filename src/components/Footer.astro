@@ -13,9 +13,10 @@ const t = getTranslations(lang);
 const year = new Date().getFullYear();
 
 const navLinks = [
-  { href: '#hero', label: t.nav.home },
-  { href: '#services', label: t.nav.services },
-  { href: '#about', label: t.nav.about },
+  { href: getPath(lang, 'services'), label: t.nav.services },
+  { href: getPath(lang, 'prices'), label: t.pages.prices.eyebrow },
+  { href: getPath(lang, 'team'), label: t.pages.team.eyebrow },
+  { href: `${getPath(lang)}#about`, label: t.nav.about },
   { href: getPath(lang, 'contact'), label: t.nav.contact },
 ];
 ---
