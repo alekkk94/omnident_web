@@ -209,10 +209,11 @@ to live that is not "wedged into the home page".
 
 ## 10. Structural decisions that keep future options open
 
-- **Locale-keyed route map** (`src/i18n/routes.ts`) — adding Italian and Greek is two columns,
-  not a routing rewrite. Italian and Greek are the stated priority markets (proximity and an
-  existing network), so the architecture assumed four locales from day one even while shipping
-  two.
+- **Locale-keyed route map** (`src/i18n/routes.ts`) — adding a language is two columns, not a
+  routing rewrite. Italian and Greek were the stated priority markets, so the architecture
+  assumed four locales from day one. **Those locales were subsequently dropped (2026-09-26)**;
+  the structure is kept because it costs nothing and makes the decision reversible. The
+  tourism pages address those markets in English instead.
 - **Greek font subsets loaded now** — so adding the Greek locale later never becomes a
   typography change.
 - **Content in Markdown collections, not a CMS** — the owner is technical and edits files. A

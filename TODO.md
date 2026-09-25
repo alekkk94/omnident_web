@@ -105,10 +105,10 @@ The collections and schemas exist; these need content before the pages are worth
 
 ## D. Later
 
-- [ ] **Italian and Greek locales.** Architecture supports four; Greek font subsets already
-      load. Priority order: tourism hub → services → team → prices. Add a column in
-      `src/i18n/routes.ts`, a locale in `astro.config.mjs`, a block in `src/i18n/ui.ts`, and
-      `it/` / `el/` folders in each collection.
+> **Italian and Greek locales: dropped** (owner decision, 2026-09-26). Not planned work.
+> The architecture still supports four locales and the Greek font subsets still load, so the
+> decision is reversible at no cost — but nothing below assumes it.
+
 - [ ] **Real photography** to replace the eight licensed stock clinic images. `IMAGES.md` is
       the shot list. Original photography is the single clearest differentiator between
       high-converting dental sites and the rest.
