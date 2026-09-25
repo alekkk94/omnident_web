@@ -6,6 +6,15 @@ work not yet done, plus content only the owner can supply.
 Companion documents: **CONFIGURATION.md** (how to change things) ·
 **METHODOLOGY.md** (why things are the way they are) · **IMAGES.md** (image slots and shot list)
 
+> **Status, 2026-09-26.** Paused deliberately: the site structure is not settled yet, so the
+> polish items that depend on it — per-page SEO metadata (B3), the social share image (B1) and
+> the performance pass (B2) — were left undone on purpose rather than overlooked. Doing them
+> against an information architecture that may still change would mean doing them twice.
+>
+> What exists today: 15 pages across two locales, a working design system, a contact form whose
+> backend is correct but unconfigured, and clearly-marked placeholder content on the team,
+> prices and guarantee pages.
+
 ---
 
 ## A. Blocks launch
