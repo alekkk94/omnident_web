@@ -46,17 +46,6 @@ const t = getTranslations(lang);
     overflow: hidden;
   }
 
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -20%;
-    left: 50%;
-    width: 140%;
-    height: 60%;
-    transform: translateX(-50%);
-    background: radial-gradient(ellipse at center, rgba(201, 168, 101, 0.12), transparent 65%);
-    pointer-events: none;
-  }
 
   .hero-grid {
     display: grid;
@@ -100,13 +89,13 @@ const t = getTranslations(lang);
     font-size: 0.7rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--color-ink-faint);
+    color: var(--color-ink-muted);
   }
 
   .scroll-hint-line {
     width: 1px;
     height: 32px;
-    background: linear-gradient(var(--color-gold), transparent);
+    background: linear-gradient(var(--color-primary), transparent);
   }
 
   @media (min-width: 860px) {

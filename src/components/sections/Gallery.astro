@@ -16,17 +16,17 @@ interface Props {
 const { lang } = Astro.props;
 const t = getTranslations(lang);
 
-const polaroids = [
-  { image: galleryImage1, angle: -4 },
-  { image: galleryImage2, angle: 3 },
-  { image: galleryImage3, angle: -2 },
-  { image: galleryImage4, angle: 5 },
-  { image: galleryImage5, angle: -3 },
-  { image: galleryImage6, angle: 2 },
+const images = [
+  galleryImage1,
+  galleryImage2,
+  galleryImage3,
+  galleryImage4,
+  galleryImage5,
+  galleryImage6,
 ];
 ---
 
-<section id="gallery" class="section gallery">
+<section id="gallery" class="section section-alt gallery">
   <div class="container">
     <div class="section-head center">
       <span class="eyebrow reveal">{t.gallery.eyebrow}</span>
@@ -36,11 +36,11 @@ const polaroids = [
       <p class="gallery-sub reveal">{t.gallery.subheading}</p>
     </div>
 
-    <div class="polaroid-wall">
-      {polaroids.map((p, i) => (
-        <div class="polaroid reveal" style={`--angle: ${p.angle}deg;`}>
-          <Figure src={p.image} alt={t.gallery.imageAlts[i]} ratio="1 / 1" sizes="(min-width: 900px) 30vw, 45vw" />
-        </div>
+    <div class="gallery-grid">
+      {images.map((image, i) => (
+        <figure class="gallery-item reveal">
+          <Figure src={image} alt={t.gallery.imageAlts[i]} ratio="4 / 3" sizes="(min-width: 900px) 32vw, 90vw" />
+        </figure>
       ))}
     </div>
   </div>
@@ -52,23 +52,17 @@ const polaroids = [
     margin-inline: auto;
   }
 
-  .polaroid-wall {
+  .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: clamp(1.5rem, 3vw, 2.5rem);
-    padding-block: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
   }
 
-  .polaroid {
-    background: #f4efe4;
-    padding: 0.75rem 0.75rem 1.25rem;
-    border-radius: 3px;
-    box-shadow: 0 18px 30px -14px rgba(0, 0, 0, 0.55);
-    transform: rotate(var(--angle));
-    transition: transform 0.35s var(--ease-out);
-  }
-
-  .polaroid:hover {
-    transform: rotate(0deg) scale(1.03);
+  .gallery-item {
+    margin: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
   }
 </style>

@@ -176,7 +176,7 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.
     font-size: 0.72rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--color-gold);
+    color: var(--color-primary);
   }
 
   .info-value {
@@ -189,7 +189,7 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.
   }
 
   .info-link:hover {
-    color: var(--color-gold-bright);
+    color: var(--color-primary-hover);
   }
 
   .info-social {
@@ -202,7 +202,7 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.
   }
 
   .info-social a:hover {
-    color: var(--color-gold-bright);
+    color: var(--color-primary-hover);
   }
 
   .map-frame {
@@ -257,9 +257,9 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.
   }
 
   .channel-option:has(input:checked) {
-    border-color: var(--color-gold);
-    color: var(--color-gold-bright);
-    background: var(--color-gold-dim);
+    border-color: var(--color-primary);
+    color: var(--color-primary-hover);
+    background: var(--color-primary-tint);
   }
 
   .field-row {
@@ -302,7 +302,7 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.
   select:focus,
   textarea:focus {
     outline: none;
-    border-color: var(--color-gold);
+    border-color: var(--color-primary);
   }
 
   .consent {
@@ -324,12 +324,12 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.
 
   .viber-fallback {
     font-size: 0.8rem;
-    color: var(--color-ink-faint);
+    color: var(--color-ink-muted);
     text-align: center;
   }
 
   .viber-fallback a {
-    color: var(--color-gold);
+    color: var(--color-primary);
   }
 
   .form-status {
@@ -339,11 +339,11 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.
   }
 
   .form-status[data-state='success'] {
-    color: #8fd19e;
+    color: var(--color-success);
   }
 
   .form-status[data-state='error'] {
-    color: #e08b8b;
+    color: var(--color-error);
   }
 
   @media (max-width: 900px) {

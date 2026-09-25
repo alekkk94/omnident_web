@@ -1,43 +1,90 @@
-/* Self-hosted fonts — Cyrillic subsets confirmed present (U+0400-045F covers ѓ ќ љ њ џ ѕ). */
-@import '@fontsource/cormorant-garamond/400.css';
-@import '@fontsource/cormorant-garamond/500.css';
-@import '@fontsource/cormorant-garamond/600.css';
-@import '@fontsource/cormorant-garamond/400-italic.css';
-@import '@fontsource/cormorant-garamond/600-italic.css';
-@import '@fontsource/montserrat/400.css';
-@import '@fontsource/montserrat/500.css';
-@import '@fontsource/montserrat/600.css';
-@import '@fontsource/montserrat/700.css';
+/* Self-hosted fonts. Cyrillic subsets cover Macedonian (ѓ ќ љ њ џ ѕ, U+0400-045F);
+   Greek subsets are loaded ahead of the planned EL locale. */
+@import '@fontsource/literata/cyrillic-400.css';
+@import '@fontsource/literata/cyrillic-500.css';
+@import '@fontsource/literata/cyrillic-600.css';
+@import '@fontsource/literata/greek-400.css';
+@import '@fontsource/literata/greek-500.css';
+@import '@fontsource/literata/greek-600.css';
+@import '@fontsource/literata/latin-400.css';
+@import '@fontsource/literata/latin-500.css';
+@import '@fontsource/literata/latin-600.css';
+@import '@fontsource/inter/cyrillic-400.css';
+@import '@fontsource/inter/cyrillic-500.css';
+@import '@fontsource/inter/cyrillic-600.css';
+@import '@fontsource/inter/greek-400.css';
+@import '@fontsource/inter/greek-500.css';
+@import '@fontsource/inter/greek-600.css';
+@import '@fontsource/inter/latin-400.css';
+@import '@fontsource/inter/latin-500.css';
+@import '@fontsource/inter/latin-600.css';
 
 :root {
-  /* Palette — placeholder dark + gold system until real OMNIDENT brand assets arrive
-     (plan §11.4). Derived from the reference mockup's register. */
-  --color-bg: #0d0c0a;
-  --color-bg-alt: #151310;
-  --color-surface: #1b1815;
-  --color-surface-raised: #221e19;
-  --color-border: rgba(201, 168, 101, 0.16);
-  --color-border-strong: rgba(201, 168, 101, 0.32);
-  --color-ink: #f4efe4;
-  --color-ink-muted: #b7ae9e;
-  --color-ink-faint: #8a8172;
-  --color-gold: #c9a865;
-  --color-gold-bright: #e3c589;
-  --color-gold-dim: rgba(201, 168, 101, 0.12);
+  /* Surfaces */
+  --color-bg: #ffffff;
+  --color-bg-alt: #f5f8fa;
+  --color-surface: #ffffff;
+  --color-surface-sunken: #eef4f7;
+  --color-border: #dde7ec;
+  --color-border-strong: #c3d5de;
 
-  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
-  --font-body: 'Montserrat', system-ui, sans-serif;
+  /* Ink */
+  --color-ink: #17303c;
+  --color-ink-body: #3d5561;
+  --color-ink-muted: #6b8390;
 
-  --container-max: 1200px;
-  --space-section: clamp(4rem, 8vw, 7.5rem);
-  --radius-md: 0.5rem;
+  /* Primary — trust blue */
+  --color-primary: #2b7a9e;
+  --color-primary-hover: #226484;
+  --color-primary-deep: #1b5a76;
+  --color-primary-tint: #e3f0f5;
+  --color-primary-wash: #f2f8fb;
+
+  /* Secondary — sage. Comfort and care contexts only, never a second CTA colour. */
+  --color-accent: #7fae9a;
+  --color-accent-tint: #eaf3ef;
+
+  /* Semantic */
+  --color-success: #3f8f6b;
+  --color-error: #b3453f;
+
+  --font-display: 'Literata', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-section: clamp(3.5rem, 7vw, 6rem);
+
+  /* Heading ramp */
+  --text-h1: clamp(2.125rem, 4.5vw, 3.25rem);
+  --text-h2: clamp(1.75rem, 3.2vw, 2.5rem);
+  --text-h3: clamp(1.25rem, 2vw, 1.5rem);
+  --text-body: 1rem;
+  --text-sm: 0.9rem;
+  --text-xs: 0.8rem;
+
+  --container-max: 1180px;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
   --radius-lg: 1rem;
   --radius-full: 999px;
 
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --duration-base: 0.6s;
+  /* Light-mode shadows: low-alpha, blue-tinted rather than neutral black. */
+  --shadow-sm: 0 1px 2px rgba(23, 48, 60, 0.05);
+  --shadow-md: 0 2px 8px rgba(23, 48, 60, 0.07);
+  --shadow-lg: 0 8px 24px rgba(23, 48, 60, 0.09);
 
-  color-scheme: dark;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-base: 0.4s;
+
+  color-scheme: light;
 }
 
 *,
@@ -68,10 +115,10 @@ html {
 body {
   margin: 0;
   background: var(--color-bg);
-  color: var(--color-ink);
+  color: var(--color-ink-body);
   font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: var(--text-body);
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -81,14 +128,27 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 500;
-  line-height: 1.15;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
   margin: 0;
   color: var(--color-ink);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--text-h1);
+}
+h2 {
+  font-size: var(--text-h2);
+}
+h3 {
+  font-size: var(--text-h3);
 }
 
 p {
   margin: 0;
+  text-wrap: pretty;
 }
 
 a {
@@ -118,60 +178,64 @@ ul {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-gold-bright);
+  outline: 2px solid var(--color-primary);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
 }
 
 .container {
   width: 100%;
   max-width: var(--container-max);
   margin-inline: auto;
-  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+  padding-inline: clamp(1rem, 4vw, 2.5rem);
 }
 
 .eyebrow {
   display: inline-block;
   font-family: var(--font-body);
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-gold);
-  margin-bottom: 1rem;
+  color: var(--color-primary);
+  margin-bottom: var(--space-3);
 }
 
+/* Retained for markup that still splits a headline around an emphasised word.
+   WO-5 removes the three-fragment pattern; until then this reads as weight, not decoration. */
 .accent {
-  font-style: italic;
-  color: var(--color-gold-bright);
+  font-style: normal;
+  color: var(--color-primary-deep);
 }
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.9rem 1.85rem;
-  border-radius: var(--radius-full);
-  font-size: 0.9rem;
+  gap: var(--space-2);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
   font-weight: 600;
-  letter-spacing: 0.02em;
+  line-height: 1.2;
   border: 1px solid transparent;
-  transition: transform 0.35s var(--ease-out), background-color 0.35s var(--ease-out), border-color 0.35s var(--ease-out), color 0.35s var(--ease-out);
+  transition: background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out), color var(--duration-base) var(--ease-out);
   white-space: nowrap;
 }
 
-.btn:hover {
-  transform: translateY(-2px);
-}
-
 .btn-primary {
-  background: linear-gradient(135deg, var(--color-gold-bright), var(--color-gold));
-  color: #1a1509;
+  background: var(--color-primary);
+  color: #ffffff;
 }
 
 .btn-primary:hover {
-  filter: brightness(1.08);
+  background: var(--color-primary-hover);
+}
+
+.btn-primary:disabled {
+  background: var(--color-border-strong);
+  cursor: not-allowed;
 }
 
 .btn-outline {
@@ -181,8 +245,9 @@ ul {
 }
 
 .btn-outline:hover {
-  border-color: var(--color-gold);
-  color: var(--color-gold-bright);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: var(--color-primary-wash);
 }
 
 .section {
@@ -190,9 +255,14 @@ ul {
   position: relative;
 }
 
+/* Alternating band, applied per-section rather than globally. */
+.section-alt {
+  background: var(--color-bg-alt);
+}
+
 .section-head {
-  max-width: 640px;
-  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  max-width: 660px;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
 .section-head.center {
@@ -200,11 +270,32 @@ ul {
   text-align: center;
 }
 
+.section-head p {
+  color: var(--color-ink-muted);
+  margin-top: var(--space-3);
+}
+
+/* Card anatomy — one definition, used by every card-like surface. */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+.card:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-md);
+}
+
 /* Scroll-reveal utility — toggled via IntersectionObserver in Layout's inline script. */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+  transform: translateY(12px);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
 }
 
 .reveal.is-visible {

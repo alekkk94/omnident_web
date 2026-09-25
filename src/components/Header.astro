@@ -67,15 +67,14 @@ const navLinks = [
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(13, 12, 10, 0.72);
-    backdrop-filter: blur(14px);
+    background: var(--color-bg);
     border-bottom: 1px solid transparent;
-    transition: border-color 0.4s ease, background-color 0.4s ease;
+    transition: border-color var(--duration-base) ease, box-shadow var(--duration-base) ease;
   }
 
   .site-header[data-scrolled='true'] {
     border-color: var(--color-border);
-    background: rgba(13, 12, 10, 0.92);
+    box-shadow: var(--shadow-sm);
   }
 
   .header-inner {
@@ -107,7 +106,7 @@ const navLinks = [
   }
 
   .nav-desktop a:hover {
-    color: var(--color-gold-bright);
+    color: var(--color-primary-hover);
   }
 
   .header-actions {
@@ -128,8 +127,8 @@ const navLinks = [
   }
 
   .lang-toggle:hover {
-    color: var(--color-gold-bright);
-    border-color: var(--color-gold);
+    color: var(--color-primary-hover);
+    border-color: var(--color-primary);
   }
 
   .header-cta {
