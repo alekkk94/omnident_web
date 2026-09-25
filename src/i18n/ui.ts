@@ -7,6 +7,9 @@ export const ui = {
     pages: {
       placeholderNotice:
         'Оваа страница прикажува ПРИМЕРОЦИ. Имињата, биографиите и цените се измислени и служат само за приказ на структурата — не се вистински податоци на OMNIDENT.',
+      tourismNav: 'Дентален туризам',
+      placeholderNoticeGuarantee:
+        'Роковите во оваа табела се ПРИМЕРОЦИ — вообичаени пазарни вредности, а не гаранцијата на OMNIDENT. Заменете ги пред објавување.',
       team: {
         eyebrow: 'Тим',
         headline: 'Луѓето зад вашата насмевка',
@@ -150,6 +153,9 @@ export const ui = {
     pages: {
       placeholderNotice:
         'This page shows PLACEHOLDER content. The names, biographies and prices are invented and exist only to show the structure — they are not real OMNIDENT data.',
+      tourismNav: 'Dental tourism',
+      placeholderNoticeGuarantee:
+        'The periods in this table are PLACEHOLDERS — typical market values, not the OMNIDENT guarantee. Replace them before launch.',
       team: {
         eyebrow: 'Team',
         headline: 'The people behind your smile',

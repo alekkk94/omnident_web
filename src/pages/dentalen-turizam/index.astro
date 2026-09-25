@@ -1,0 +1,145 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getTourism } from '../../i18n/tourism';
+import { getTranslations } from '../../i18n/utils';
+import { getPath } from '../../i18n/routes';
+
+const lang = 'mk' as const;
+const t = getTranslations(lang);
+const x = getTourism(lang);
+---
+
+<Layout lang={lang} routeKey="tourism">
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{x.eyebrow}</span>
+        <h1>{x.headline}</h1>
+        <p>{x.intro}</p>
+      </div>
+
+      <h2 class="block-title">{x.howTitle}</h2>
+      <ol class="steps">
+        {x.steps.map((s, i) => (
+          <li class="card">
+            <span class="step-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </li>
+        ))}
+      </ol>
+
+      <h2 class="block-title">{x.tripTitle}</h2>
+      <p class="note">{x.tripNote}</p>
+      <table class="data-table">
+        <tbody>
+          {x.trips.map((r) => (
+            <tr>
+              <td>{r.treatment}</td>
+              <td>{r.visits}</td>
+              <td>{r.days}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <div class="two-col">
+        <div>
+          <h2 class="block-title">{x.logisticsTitle}</h2>
+          <ul class="ticks">
+            {x.logistics.map((l) => <li>{l}</li>)}
+          </ul>
+          <p class="note">{x.logisticsNote}</p>
+        </div>
+        <div>
+          <h2 class="block-title">{x.languagesTitle}</h2>
+          <p>{x.languagesBody}</p>
+        </div>
+      </div>
+
+      <div class="guarantee-teaser card">
+        <p>{x.guaranteeTeaser}</p>
+        <a class="btn btn-outline" href={getPath(lang, 'guarantee')}>{x.guaranteeLink}</a>
+      </div>
+
+      <div class="tourism-cta">
+        <h2>{x.ctaTitle}</h2>
+        <p>{x.ctaBody}</p>
+        <a class="btn btn-primary" href={getPath(lang, 'contact')}>{t.nav.cta}</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .block-title {
+    font-size: var(--text-h3);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-4);
+  }
+  .note {
+    color: var(--color-ink-muted);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-4);
+  }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+  .step-num {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--color-primary);
+  }
+  .steps h3 {
+    font-size: 1.05rem;
+    margin-top: var(--space-2);
+  }
+  .steps p {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-ink-muted);
+  }
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+  .data-table td {
+    padding: var(--space-4) var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .data-table td:first-child { font-weight: 600; color: var(--color-ink); }
+  .two-col {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+  .ticks {
+    display: grid;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+  }
+  .ticks li::before {
+    content: '\2713\00a0\00a0';
+    color: var(--color-accent);
+  }
+  .guarantee-teaser {
+    margin-top: var(--space-8);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    background: var(--color-primary-wash);
+  }
+  .guarantee-teaser p { margin: 0; max-width: 60ch; }
+  .tourism-cta {
+    margin-top: var(--space-8);
+    text-align: center;
+    padding: var(--space-7) var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+  .tourism-cta p { color: var(--color-ink-muted); margin: var(--space-3) 0 var(--space-5); }
+</style>

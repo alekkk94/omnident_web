@@ -1,0 +1,95 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PlaceholderNotice from '../../components/PlaceholderNotice.astro';
+import { getGuarantee, guaranteeItems, guaranteePlaceholder } from '../../i18n/tourism';
+import { getTranslations } from '../../i18n/utils';
+import { getPath } from '../../i18n/routes';
+
+const lang = 'mk' as const;
+const t = getTranslations(lang);
+const g = getGuarantee(lang);
+---
+
+<Layout lang={lang} routeKey="guarantee">
+  <section class="section">
+    <div class="container narrow">
+      {guaranteePlaceholder && <PlaceholderNotice lang={lang} message={t.pages.placeholderNoticeGuarantee} />}
+      <div class="section-head">
+        <span class="eyebrow">{g.eyebrow}</span>
+        <h1>{g.headline}</h1>
+        <p>{g.intro}</p>
+      </div>
+
+      <h2 class="block-title">{g.tableTitle}</h2>
+      <table class="data-table">
+        <thead>
+          <tr><th>{g.colItem}</th><th>{g.colYears}</th></tr>
+        </thead>
+        <tbody>
+          {guaranteeItems.map((item) => (
+            <tr>
+              <td>{item[lang]}</td>
+              <td>{item.years} {item.years === '1' ? g.yearsUnitOne : g.yearsUnit}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <h2 class="block-title">{g.coveredTitle}</h2>
+      <ul class="ticks">{g.covered.map((c) => <li>{c}</li>)}</ul>
+
+      <div class="highlight card">
+        <h2>{g.remoteTitle}</h2>
+        <p>{g.remoteBody}</p>
+        <a class="btn btn-primary" href={getPath(lang, 'contact')}>{t.nav.cta}</a>
+      </div>
+
+      <h2 class="block-title">{g.conditionsTitle}</h2>
+      <ul class="ticks">{g.conditions.map((c) => <li>{c}</li>)}</ul>
+
+      <h2 class="block-title">{g.voidsTitle}</h2>
+      <ul class="crosses">{g.voids.map((v) => <li>{v}</li>)}</ul>
+
+      <p class="footnote">{g.footnote}</p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .narrow { max-width: 760px; }
+  .block-title {
+    font-size: var(--text-h3);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-4);
+  }
+  .data-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+  .data-table th,
+  .data-table td {
+    text-align: left;
+    padding: var(--space-4) var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .data-table th {
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-ink-muted);
+  }
+  .data-table td:last-child { font-weight: 600; color: var(--color-ink); white-space: nowrap; }
+  .ticks, .crosses { display: grid; gap: var(--space-2); font-size: var(--text-sm); }
+  .ticks li::before { content: '\2713\00a0\00a0'; color: var(--color-accent); }
+  .crosses li::before { content: '\00d7\00a0\00a0'; color: var(--color-error); }
+  .highlight {
+    margin-top: var(--space-8);
+    background: var(--color-primary-wash);
+  }
+  .highlight h2 { font-size: var(--text-h3); }
+  .highlight p { margin: var(--space-3) 0 var(--space-5); }
+  .footnote {
+    margin-top: var(--space-7);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+    font-size: var(--text-xs);
+    color: var(--color-ink-muted);
+  }
+</style>

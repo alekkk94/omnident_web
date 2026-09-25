@@ -8,6 +8,8 @@ export const routes = {
   team: { mk: 'tim', en: 'team' },
   services: { mk: 'uslugi', en: 'services' },
   prices: { mk: 'ceni', en: 'prices' },
+  tourism: { mk: 'dentalen-turizam', en: 'dental-tourism' },
+  guarantee: { mk: 'dentalen-turizam/garancija', en: 'dental-tourism/guarantee' },
   contact: { mk: 'kontakt', en: 'contact' },
 } as const;
 
