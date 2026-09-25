@@ -64,12 +64,9 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.
         <form
           name="contact"
           method="POST"
-          data-netlify="true"
-          netlify-honeypot="bot-field"
           data-contact-form
           data-lang={lang}
         >
-          <input type="hidden" name="form-name" value="contact" />
           <input type="hidden" name="language" value={lang} />
           <p class="honeypot">
             <label>Don't fill this out: <input name="bot-field" /></label>
@@ -213,7 +210,6 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.
     border-radius: var(--radius-lg);
     overflow: hidden;
     border: 1px solid var(--color-border);
-    filter: grayscale(0.3) invert(0.92) contrast(0.9);
   }
 
   .contact-form-wrap {
@@ -375,9 +371,23 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.
     const lang = form.dataset.lang === 'en' ? 'en' : 'mk';
 
     const messages = {
-      mk: { success: 'Пораката е испратена! Ќе ве контактираме наскоро.', error: 'Настана грешка. Обидете се повторно или јавете се директно.' },
-      en: { success: "Message sent! We'll contact you shortly.", error: 'Something went wrong. Please try again or call us directly.' },
+      mk: {
+        success: 'Пораката е испратена! Ќе ве контактираме наскоро.',
+        error: 'Настана грешка. Обидете се повторно или јавете се директно.',
+        sending: 'Се испраќа…',
+        attachmentTooLarge: 'Прикачената слика е поголема од 4 MB. Изберете помала слика.',
+      },
+      en: {
+        success: "Message sent! We'll contact you shortly.",
+        error: 'Something went wrong. Please try again or call us directly.',
+        sending: 'Sending…',
+        attachmentTooLarge: 'The attached image is larger than 4 MB. Please choose a smaller image.',
+      },
     };
+
+    const MAX_ATTACHMENT_BYTES = 4 * 1024 * 1024;
+    const attachmentInput = form.querySelector<HTMLInputElement>('#attachment');
+    const submitEmailLabel = submitEmailBtn?.textContent ?? '';
 
     const updateChannel = () => {
       const selected = form.querySelector<HTMLInputElement>('[data-channel-input]:checked')?.value ?? 'email';
@@ -399,11 +409,29 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.
       e.preventDefault();
       if (!form.reportValidity()) return;
 
+      if (attachmentInput?.files?.[0] && attachmentInput.files[0].size > MAX_ATTACHMENT_BYTES) {
+        if (status) {
+          status.textContent = messages[lang].attachmentTooLarge;
+          status.dataset.state = 'error';
+        }
+        return;
+      }
+
       const formData = new FormData(form);
 
+      if (submitEmailBtn) {
+        submitEmailBtn.disabled = true;
+        submitEmailBtn.textContent = messages[lang].sending;
+      }
+      if (status) {
+        status.textContent = '';
+        status.removeAttribute('data-state');
+      }
+
       try {
-        const response = await fetch('/', { method: 'POST', body: formData });
-        if (!response.ok) throw new Error('Network response was not ok');
+        const response = await fetch('/api/contact', { method: 'POST', body: formData });
+        const payload = (await response.json().catch(() => null)) as { ok?: boolean } | null;
+        if (!payload || payload.ok !== true) throw new Error('Submission failed');
         if (status) {
           status.textContent = messages[lang].success;
           status.dataset.state = 'success';
@@ -414,6 +442,11 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.
         if (status) {
           status.textContent = messages[lang].error;
           status.dataset.state = 'error';
+        }
+      } finally {
+        if (submitEmailBtn) {
+          submitEmailBtn.disabled = false;
+          submitEmailBtn.textContent = submitEmailLabel;
         }
       }
     });
