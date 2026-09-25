@@ -1,6 +1,7 @@
 ---
-import { getTranslations, localizedPath } from '../i18n/utils';
+import { getTranslations } from '../i18n/utils';
 import type { Locale } from '../i18n/ui';
+import { getPath } from '../i18n/routes';
 import { site } from '../config/site';
 
 interface Props {
@@ -15,14 +16,14 @@ const navLinks = [
   { href: '#hero', label: t.nav.home },
   { href: '#services', label: t.nav.services },
   { href: '#about', label: t.nav.about },
-  { href: '#contact', label: t.nav.contact },
+  { href: getPath(lang, 'contact'), label: t.nav.contact },
 ];
 ---
 
 <footer class="site-footer">
   <div class="container footer-inner">
     <div class="footer-brand">
-      <a href={localizedPath(lang)} class="logo">OMNIDENT</a>
+      <a href={getPath(lang)} class="logo">OMNIDENT</a>
       <p>{t.footer.tagline}</p>
     </div>
 

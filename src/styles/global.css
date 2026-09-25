@@ -201,13 +201,6 @@ ul {
   margin-bottom: var(--space-3);
 }
 
-/* Retained for markup that still splits a headline around an emphasised word.
-   WO-5 removes the three-fragment pattern; until then this reads as weight, not decoration. */
-.accent {
-  font-style: normal;
-  color: var(--color-primary-deep);
-}
-
 .btn {
   display: inline-flex;
   align-items: center;

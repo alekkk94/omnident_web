@@ -1,0 +1,10 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Contact from '../../components/sections/Contact.astro';
+
+const lang = 'en' as const;
+---
+
+<Layout lang={lang} routeKey="contact">
+  <Contact lang={lang} withForm />
+</Layout>

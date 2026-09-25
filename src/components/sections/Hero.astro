@@ -2,6 +2,7 @@
 import { getTranslations } from '../../i18n/utils';
 import type { Locale } from '../../i18n/ui';
 import Figure from '../Figure.astro';
+import { getPath } from '../../i18n/routes';
 import heroImage from '../../assets/images/clinic/hero-treatment-room-wide.jpg';
 
 interface Props {
@@ -17,12 +18,12 @@ const t = getTranslations(lang);
     <div class="hero-content">
       <span class="eyebrow reveal">{t.hero.eyebrow}</span>
       <h1 class="hero-headline reveal">
-        {t.hero.headlineStart}<span class="accent">{t.hero.headlineAccent}</span>{t.hero.headlineEnd}
+        {t.hero.headline}
       </h1>
       <p class="hero-subline reveal">{t.hero.subline}</p>
 
       <div class="hero-ctas reveal">
-        <a class="btn btn-primary" href="#contact">{t.hero.ctaPrimary}</a>
+        <a class="btn btn-primary" href={getPath(lang, 'contact')}>{t.hero.ctaPrimary}</a>
         <a class="btn btn-outline" href="#services">{t.hero.ctaSecondary}</a>
       </div>
     </div>

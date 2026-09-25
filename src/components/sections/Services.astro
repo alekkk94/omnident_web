@@ -1,6 +1,7 @@
 ---
 import { getTranslations, getServices } from '../../i18n/utils';
 import type { Locale } from '../../i18n/ui';
+import { getPath } from '../../i18n/routes';
 import { icons, serviceIconMap } from '../../lib/icons';
 
 interface Props {
@@ -17,7 +18,7 @@ const categories = getServices(lang);
     <div class="section-head center">
       <span class="eyebrow reveal">{t.services.eyebrow}</span>
       <h2 class="reveal">
-        {t.services.headlineStart}<span class="accent">{t.services.headlineAccent}</span>{t.services.headlineEnd}
+        {t.services.headline}
       </h2>
       <p class="services-sub reveal">{t.services.subheading}</p>
     </div>
@@ -48,7 +49,7 @@ const categories = getServices(lang);
                 <li>{item}</li>
               ))}
             </ul>
-            <a class="btn btn-primary service-cta" href="#contact" data-service-cta={cat.id}>
+            <a class="btn btn-primary service-cta" href={`${getPath(lang, 'contact')}?service=${cat.id}`}>
               {t.services.ctaLabel}
             </a>
           </div>
@@ -213,15 +214,4 @@ const categories = getServices(lang);
     });
   });
 
-  // Pre-select the matching option in the contact form when a service CTA is clicked.
-  document.querySelectorAll<HTMLAnchorElement>('[data-service-cta]').forEach((cta) => {
-    cta.addEventListener('click', () => {
-      const select = document.querySelector<HTMLSelectElement>('#service-select');
-      const serviceId = cta.dataset.serviceCta;
-      if (select && serviceId) {
-        select.value = serviceId;
-        select.dispatchEvent(new Event('change', { bubbles: true }));
-      }
-    });
-  });
 </script>

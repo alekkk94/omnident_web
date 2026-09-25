@@ -1,27 +1,33 @@
 ---
-import { getTranslations, localizedPath, otherLocale } from '../i18n/utils';
+import { getTranslations, otherLocale } from '../i18n/utils';
 import type { Locale } from '../i18n/ui';
+import { getPath, type RouteKey } from '../i18n/routes';
 
 interface Props {
   lang: Locale;
+  routeKey?: RouteKey;
 }
 
-const { lang } = Astro.props;
+const { lang, routeKey = 'home' } = Astro.props;
 const t = getTranslations(lang);
 const altLang = otherLocale(lang);
 const altLangName = getTranslations(altLang).nav.langName;
 
+const home = getPath(lang);
+const contact = getPath(lang, 'contact');
+
+// Section anchors are absolute so they work from any page, not just the home page.
 const navLinks = [
-  { href: '#hero', label: t.nav.home },
-  { href: '#services', label: t.nav.services },
-  { href: '#about', label: t.nav.about },
-  { href: '#contact', label: t.nav.contact },
+  { href: home, label: t.nav.home },
+  { href: `${home}#services`, label: t.nav.services },
+  { href: `${home}#about`, label: t.nav.about },
+  { href: contact, label: t.nav.contact },
 ];
 ---
 
 <header class="site-header" data-header>
   <div class="container header-inner">
-    <a href={localizedPath(lang)} class="logo">OMNIDENT</a>
+    <a href={home} class="logo">OMNIDENT</a>
 
     <nav class="nav-desktop" aria-label="Primary">
       <ul>
@@ -32,10 +38,10 @@ const navLinks = [
     </nav>
 
     <div class="header-actions">
-      <a class="lang-toggle" href={localizedPath(altLang)} hreflang={altLang}>
+      <a class="lang-toggle" href={getPath(altLang, routeKey)} hreflang={altLang}>
         {t.nav.langToggle}
       </a>
-      <a class="btn btn-primary header-cta" href="#contact">{t.nav.cta}</a>
+      <a class="btn btn-primary header-cta" href={contact}>{t.nav.cta}</a>
       <button
         type="button"
         class="menu-toggle"
@@ -56,9 +62,9 @@ const navLinks = [
       {navLinks.map((link) => (
         <li><a href={link.href} data-mobile-link>{link.label}</a></li>
       ))}
-      <li><a href={localizedPath(altLang)} hreflang={altLang} data-mobile-link>{altLangName}</a></li>
+      <li><a href={getPath(altLang, routeKey)} hreflang={altLang} data-mobile-link>{altLangName}</a></li>
     </ul>
-    <a class="btn btn-primary" href="#contact" data-mobile-link>{t.nav.cta}</a>
+    <a class="btn btn-primary" href={contact} data-mobile-link>{t.nav.cta}</a>
   </div>
 </header>
 

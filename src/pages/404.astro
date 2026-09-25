@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getTranslations } from '../i18n/utils';
+import { getPath } from '../i18n/routes';
+
+// Astro emits a single 404 for the whole site, so it is served for both locales.
+// It carries the default locale's copy with the English line underneath.
+const lang = 'mk' as const;
+const t = getTranslations(lang);
+const en = getTranslations('en');
+---
+
+<Layout lang={lang}>
+  <section class="section notfound">
+    <div class="container">
+      <h1>404</h1>
+      <p>{t.notFound.message}</p>
+      <p class="notfound-en">{en.notFound.message}</p>
+      <a class="btn btn-primary" href={getPath(lang)}>{t.notFound.back}</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .notfound {
+    text-align: center;
+    padding-block: clamp(5rem, 14vw, 9rem);
+  }
+  .notfound p {
+    color: var(--color-ink-muted);
+    margin-block: var(--space-4);
+  }
+  .notfound-en {
+    font-size: var(--text-sm);
+  }
+  .notfound .btn {
+    margin-top: var(--space-5);
+  }
+</style>

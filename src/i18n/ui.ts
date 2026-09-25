@@ -4,6 +4,10 @@ export const defaultLocale: Locale = 'mk';
 
 export const ui = {
   mk: {
+    notFound: {
+      message: 'Страницата не постои или е преместена.',
+      back: 'Врати се на почетна',
+    },
     meta: {
       title: 'OMNIDENT — Дентална Естетика Скопје',
       description:
@@ -20,9 +24,7 @@ export const ui = {
     },
     hero: {
       eyebrow: 'Дентална Естетика · Скопје',
-      headlineStart: 'Насмевка што ',
-      headlineAccent: 'зборува',
-      headlineEnd: ' за вас',
+      headline: 'Насмевка што зборува за вас',
       subline:
         'Естетска и општа стоматологија во срцето на Скопје — прецизна нега, топла атмосфера и резултати на кои им верувате.',
       ctaPrimary: 'Закажи термин',
@@ -32,18 +34,14 @@ export const ui = {
     },
     about: {
       eyebrow: 'За нас',
-      headlineStart: 'Грижа со ',
-      headlineAccent: 'смирен',
-      headlineEnd: ' пристап',
+      headline: 'Грижа со смирен пристап',
       philosophy:
         'Останете смирени и насмевнете се. Во OMNIDENT веруваме дека посетата на стоматолог не треба да предизвикува стрес — затоа градиме секој третман околу вашата удобност, со прецизност поткрепена на модерни протоколи и искрена комуникација.',
       imageAlt: 'Стоматолошки стол во светла ординација со сина тапацерија (илустративна фотографија)',
     },
     services: {
       eyebrow: 'Услуги',
-      headlineStart: 'Стоматологија скроена ',
-      headlineAccent: 'за вас',
-      headlineEnd: '',
+      headline: 'Стоматологија скроена за вас',
       subheading:
         'Секоја услуга е водена од јасен клинички протокол — без изненадувања, без празни ветувања.',
       ctaLabel: 'Закажи преглед',
@@ -52,9 +50,7 @@ export const ui = {
     },
     process: {
       eyebrow: 'Вашата посета',
-      headlineStart: 'Како тече ',
-      headlineAccent: 'третманот',
-      headlineEnd: '',
+      headline: 'Како тече третманот',
       steps: [
         { title: 'Закажување', description: 'Изберете термин преку формата, телефон или Viber — потврдуваме брзо.' },
         { title: 'Преглед', description: 'Детална дијагностика и разговор за вашите цели, без брзање.' },
@@ -64,9 +60,7 @@ export const ui = {
     },
     story: {
       eyebrow: 'Нашата приказна',
-      headlineStart: 'Патот до ',
-      headlineAccent: 'денес',
-      headlineEnd: '',
+      headline: 'Патот до денес',
       nodes: [
         { title: 'Основање', description: 'OMNIDENT е основан со јасна цел: дентална нега во која пациентите се чувствуваат сигурни и почитувани.' },
         { title: 'Естетска стоматологија', description: 'Проширивме фокус кон естетски третмани — за насмевки кои изгледаат природно и трајно.' },
@@ -77,9 +71,7 @@ export const ui = {
     },
     gallery: {
       eyebrow: 'Зид со спомени',
-      headlineStart: 'Полароиди од нашата ',
-      headlineAccent: 'секојдневна работа',
-      headlineEnd: '',
+      headline: 'Поглед во нашата ординација',
       subheading: 'Моменти од ординацијата — вистински, неулепшани.',
       placeholderNote: 'Простор за фотографии — чекаме реални слики од ординацијата.',
       imageAlts: [
@@ -93,9 +85,7 @@ export const ui = {
     },
     contact: {
       eyebrow: 'Контакт',
-      headlineStart: 'Закажи ',
-      headlineAccent: 'термин',
-      headlineEnd: '',
+      headline: 'Закажи термин',
       subheading: 'Јавете се, пишете или поминете — ќе ви одговориме брзо.',
       addressLabel: 'Адреса',
       phoneLabel: 'Телефон',
@@ -128,6 +118,10 @@ export const ui = {
     },
   },
   en: {
+    notFound: {
+      message: 'This page does not exist or has moved.',
+      back: 'Back to home',
+    },
     meta: {
       title: 'OMNIDENT — Dental Esthetic Center Skopje',
       description:
@@ -144,9 +138,7 @@ export const ui = {
     },
     hero: {
       eyebrow: 'Dental Esthetics · Skopje',
-      headlineStart: 'A smile that ',
-      headlineAccent: 'speaks',
-      headlineEnd: ' for you',
+      headline: 'A smile that speaks for you',
       subline:
         'Esthetic and general dentistry in the heart of Skopje — precise care, a warm atmosphere, and results you can trust.',
       ctaPrimary: 'Book an appointment',
@@ -156,18 +148,14 @@ export const ui = {
     },
     about: {
       eyebrow: 'About us',
-      headlineStart: 'Care with a ',
-      headlineAccent: 'calm',
-      headlineEnd: ' approach',
+      headline: 'Care with a calm approach',
       philosophy:
         "Stay calm and smile. At OMNIDENT we believe a dental visit shouldn't cause stress — that's why we build every treatment around your comfort, backed by precise, modern protocols and honest communication.",
       imageAlt: 'Dental chair in a bright treatment room with blue upholstery (illustrative photo)',
     },
     services: {
       eyebrow: 'Services',
-      headlineStart: 'Dentistry tailored ',
-      headlineAccent: 'to you',
-      headlineEnd: '',
+      headline: 'Dentistry tailored to you',
       subheading:
         'Every service follows a clear clinical protocol — no surprises, no empty promises.',
       ctaLabel: 'Book a check-up',
@@ -176,9 +164,7 @@ export const ui = {
     },
     process: {
       eyebrow: 'Your visit',
-      headlineStart: 'How ',
-      headlineAccent: 'treatment',
-      headlineEnd: ' works',
+      headline: 'How treatment works',
       steps: [
         { title: 'Booking', description: 'Pick a time via the form, phone, or Viber — we confirm quickly.' },
         { title: 'Examination', description: 'Thorough diagnostics and an unhurried conversation about your goals.' },
@@ -188,9 +174,7 @@ export const ui = {
     },
     story: {
       eyebrow: 'Our story',
-      headlineStart: 'The path to ',
-      headlineAccent: 'today',
-      headlineEnd: '',
+      headline: 'The path to today',
       nodes: [
         { title: 'Founding', description: 'OMNIDENT was founded with a clear purpose: dental care where patients feel safe and respected.' },
         { title: 'Esthetic dentistry', description: 'We expanded our focus toward esthetic treatments — for smiles that look natural and last.' },
@@ -201,9 +185,7 @@ export const ui = {
     },
     gallery: {
       eyebrow: 'Wall of memories',
-      headlineStart: 'Polaroids from our ',
-      headlineAccent: 'everyday work',
-      headlineEnd: '',
+      headline: 'A look inside our clinic',
       subheading: 'Real moments from the clinic — unfiltered.',
       placeholderNote: 'Photo space — awaiting real clinic photos.',
       imageAlts: [
@@ -217,9 +199,7 @@ export const ui = {
     },
     contact: {
       eyebrow: 'Contact',
-      headlineStart: 'Book an ',
-      headlineAccent: 'appointment',
-      headlineEnd: '',
+      headline: 'Book an appointment',
       subheading: "Call, write, or drop by — we'll get back to you quickly.",
       addressLabel: 'Address',
       phoneLabel: 'Phone',

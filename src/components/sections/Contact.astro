@@ -2,12 +2,16 @@
 import { getTranslations, getServices } from '../../i18n/utils';
 import type { Locale } from '../../i18n/ui';
 import { site } from '../../config/site';
+import { getPath } from '../../i18n/routes';
 
 interface Props {
   lang: Locale;
+  /** The form renders only on the contact page. Every other surface links to it.
+      One form in the codebase, one place to fill it in. */
+  withForm?: boolean;
 }
 
-const { lang } = Astro.props;
+const { lang, withForm = false } = Astro.props;
 const t = getTranslations(lang);
 const categories = getServices(lang);
 const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.mapQuery)}&output=embed`;
@@ -18,7 +22,7 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.
     <div class="section-head center">
       <span class="eyebrow reveal">{t.contact.eyebrow}</span>
       <h2 class="reveal">
-        {t.contact.headlineStart}<span class="accent">{t.contact.headlineAccent}</span>{t.contact.headlineEnd}
+        {t.contact.headline}
       </h2>
       <p class="contact-sub reveal">{t.contact.subheading}</p>
     </div>
@@ -60,6 +64,7 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.
         </div>
       </div>
 
+      {withForm ? (
       <div class="contact-form-wrap reveal">
         <form
           name="contact"
@@ -138,6 +143,12 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.
           <p class="form-status" data-form-status role="status" aria-live="polite"></p>
         </form>
       </div>
+      ) : (
+      <div class="contact-cta-panel reveal">
+        <p>{t.contact.subheading}</p>
+        <a class="btn btn-primary" href={getPath(lang, 'contact')}>{t.nav.cta}</a>
+      </div>
+      )}
     </div>
   </div>
 </section>
@@ -210,6 +221,22 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.
     border-radius: var(--radius-lg);
     overflow: hidden;
     border: 1px solid var(--color-border);
+  }
+
+  .contact-cta-panel {
+    background: var(--color-primary-wash);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-5);
+    align-self: start;
+  }
+
+  .contact-cta-panel p {
+    color: var(--color-ink-muted);
   }
 
   .contact-form-wrap {
@@ -404,6 +431,15 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.
 
     channelInputs.forEach((input) => input.addEventListener('change', updateChannel));
     updateChannel();
+
+    // Service CTAs link here as /kontakt/?service=<id> — pre-select that option.
+    const requestedService = new URLSearchParams(window.location.search).get('service');
+    if (requestedService) {
+      const select = form.querySelector<HTMLSelectElement>('#service-select');
+      if (select && Array.from(select.options).some((o) => o.value === requestedService)) {
+        select.value = requestedService;
+      }
+    }
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
